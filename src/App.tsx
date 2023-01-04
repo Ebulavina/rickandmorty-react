@@ -1,16 +1,11 @@
-import React from 'react';
-import { Layout } from 'antd';
-import { CharactersList } from './components/CharactersList'
-
-const { Content } = Layout;
+import { CharactersPage } from './pages/CharactersPage'
+import { Route, Routes } from 'react-router-dom';
 
 function App() {
   return (
-    <Layout style={{ height: '100vh' }}>
-      <Content style={{ padding: '50px' }}>
-        <CharactersList />
-      </Content>
-    </Layout>
+    <Routes>
+      <Route path='/' element={ <CharactersPage /> } />
+    </Routes>
   );
 }
 
