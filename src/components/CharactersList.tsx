@@ -1,6 +1,6 @@
 import { ICharacter } from "../models/ICharacter"
-import { Card, Space, Spin } from "antd"
-import axios from "axios"
+import { Card, Space, Spin, Alert } from "antd"
+import axios, { Axios, AxiosError } from "axios"
 import { useEffect, useState } from "react"
 
 export function CharactersList() {
@@ -8,22 +8,35 @@ export function CharactersList() {
 
     const [characters, setCharacters] = useState<ICharacter[]>([])
     const [loading, setLoading] = useState(false)
+    const [error, setError] = useState('')
 
     async function fetchCharacters() {
-        setLoading(true)
-        const respounse = await axios.get<{results: ICharacter[]}>(url)
-        setCharacters(respounse.data.results)
-        setLoading(false)
+        try {
+            setError('')
+            setLoading(true)
+            const respounse = await axios.get<{results: ICharacter[]}>(url)
+            setCharacters(respounse.data.results)
+            setLoading(false)
+        } catch (e: unknown) {
+            const error = e as AxiosError
+            setLoading(false)
+            setError(error.message)
+        }
     }
 
     useEffect(() => { fetchCharacters() }, [])
 
-    return loading ? 
-        <div style={{ textAlign: 'center' }}>
-            <Spin />
-        </div>
-        :
-            <Space wrap style={{ justifyContent: 'center' }}>
+    return (
+        <Space wrap style={{ justifyContent: 'center' }}>
+            {loading && <Spin />}
+            {error &&     
+                <Alert
+                    message="Error"
+                    description={error}
+                    type="error"
+                    showIcon
+                />
+            }
             {characters.map(character => 
                 <Card
                     key={character.id}
@@ -35,4 +48,5 @@ export function CharactersList() {
                 </Card>
             )}
         </Space>
+    )
 }
