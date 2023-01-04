@@ -1,30 +1,8 @@
-import { ICharacter } from "../models/ICharacter"
 import { Card, Space, Spin, Alert } from "antd"
-import axios, { Axios, AxiosError } from "axios"
-import { useEffect, useState } from "react"
+import { useCharacters } from "../hooks/characters"
 
 export function CharactersList() {
-    const url = "https://rickandmortyapi.com/api/character"
-
-    const [characters, setCharacters] = useState<ICharacter[]>([])
-    const [loading, setLoading] = useState(false)
-    const [error, setError] = useState('')
-
-    async function fetchCharacters() {
-        try {
-            setError('')
-            setLoading(true)
-            const respounse = await axios.get<{results: ICharacter[]}>(url)
-            setCharacters(respounse.data.results)
-            setLoading(false)
-        } catch (e: unknown) {
-            const error = e as AxiosError
-            setLoading(false)
-            setError(error.message)
-        }
-    }
-
-    useEffect(() => { fetchCharacters() }, [])
+    const { characters, loading, error } = useCharacters()
 
     return (
         <Space wrap style={{ justifyContent: 'center' }}>
