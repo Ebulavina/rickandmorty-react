@@ -6,7 +6,7 @@ const { Content } = Layout;
 
 function App() {
   return (
-    <Layout>
+    <Layout style={{ height: '100vh' }}>
       <Content style={{ padding: '50px' }}>
         <CharactersList />
       </Content>
