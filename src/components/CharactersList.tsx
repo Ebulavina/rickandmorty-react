@@ -1,8 +1,8 @@
-import { Card, Space, Spin, Alert } from "antd"
+import { Card, Space, Spin, Alert, Button } from "antd"
 import { useCharacters } from "../hooks/characters"
 
 export function CharactersList() {
-    const { characters, loading, error } = useCharacters()
+    const { characters, loading, error, isLast, setPage } = useCharacters()
 
     return (
         <Space wrap style={{ justifyContent: 'center' }}>
@@ -15,7 +15,7 @@ export function CharactersList() {
                     showIcon
                 />
             }
-            {characters.map(character => 
+            {!loading && characters.map(character => 
                 <Card
                     key={character.id}
                     hoverable
@@ -25,6 +25,8 @@ export function CharactersList() {
                     <Card.Meta title={character.name} description={character.gender} />
                 </Card>
             )}
+
+            {!isLast && <Button onClick={() => setPage(prevState => prevState + 1)}>Load more</Button>}
         </Space>
     )
 }
