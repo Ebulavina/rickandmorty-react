@@ -3,13 +3,13 @@ import { Dispatch } from "redux"
 import { CharactersActionTypes, CharactersAction } from "../../models/characters"
 import { ICharacter } from "../../models/ICharacter"
 
-export const fetchCharacters = () => {
+export const fetchCharacters = (page = 1) => {
     const url = "https://rickandmortyapi.com/api/character"
 
     return async (dispatch: Dispatch<CharactersAction>) => {
         try {
             dispatch({type: CharactersActionTypes.FETCH_CHARACTERS})
-            const respounse = await axios.get<{results: ICharacter[]}>(url)
+            const respounse = await axios.get<{results: ICharacter[]}>(url + '/?page=' + page)
             dispatch({type: CharactersActionTypes.FETCH_CHARACTERS_SUCCESS, payload: respounse.data.results})
         } catch (e) {
             dispatch({
@@ -18,4 +18,8 @@ export const fetchCharacters = () => {
             })
         }
     }
+}
+
+export function SetCharactersPage(page: number): CharactersAction {
+    return {type: CharactersActionTypes.SET_CHARACTERS_PAGE, payload: page}
 }

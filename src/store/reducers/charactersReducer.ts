@@ -3,17 +3,20 @@ import { CharactersState, CharactersAction, CharactersActionTypes } from "../../
 const initialState: CharactersState = {
     characters: [],
     loading: false,
-    error: null
+    error: null,
+    page: 1
 }
 
 export const charactersReduces = (state = initialState, action: CharactersAction): CharactersState => {
     switch (action.type) {
         case CharactersActionTypes.FETCH_CHARACTERS:
-            return {loading: true, error: null, characters: []}
+            return {...state, loading: true}
         case CharactersActionTypes.FETCH_CHARACTERS_SUCCESS:
-            return {loading: false, error: null, characters: action.payload}
+            return {...state, loading: false, characters: action.payload}
         case CharactersActionTypes.FETCH_CHARACTERS_ERROR:
-            return {loading: false, error: action.payload, characters: []}
+            return {...state, loading: false, error: action.payload}
+        case CharactersActionTypes.SET_CHARACTERS_PAGE:
+            return {...state, page: action.payload}
         default:
             return state
     }
