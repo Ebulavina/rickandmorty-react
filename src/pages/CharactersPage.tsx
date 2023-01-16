@@ -5,7 +5,7 @@ const { Content } = Layout;
 
 export function CharactersPage() {
     return (
-        <Layout style={{ height: '100vh' }}>
+        <Layout>
             <Content style={{ padding: '50px' }}>
                 <CharactersList />
             </Content>
