@@ -11,22 +11,22 @@ export function useCharacters() {
     const [error, setError] = useState('')
     const [isLast, setIsLast] = useState(false)
 
-    async function fetchCharacters() {
-        try {
-            setError('')
-            setLoading(true)
-            const respounse = await axios.get<{results: ICharacter[], info: { next: string }}>(url + '/?page=' + page)
-            setCharacters(prevState => prevState.concat(respounse.data.results))
-            setLoading(false)
-            setIsLast(!respounse.data.info.next)
-        } catch (e: unknown) {
-            const error = e as AxiosError
-            setLoading(false)
-            setError(error.message)
-        }
-    }
+    // async function fetchCharacters() {
+    //     try {
+    //         setError('')
+    //         setLoading(true)
+    //         const respounse = await axios.get<{results: ICharacter[], info: { next: string }}>(url + '/?page=' + page)
+    //         setCharacters(prevState => prevState.concat(respounse.data.results))
+    //         setLoading(false)
+    //         setIsLast(!respounse.data.info.next)
+    //     } catch (e: unknown) {
+    //         const error = e as AxiosError
+    //         setLoading(false)
+    //         setError(error.message)
+    //     }
+    // }
 
-    useEffect(() => { fetchCharacters() }, [page])
+    // useEffect(() => { fetchCharacters() }, [page])
 
     return { characters, loading, error, isLast, setPage }
 } 
