@@ -4,17 +4,15 @@ import { useActions } from "../hooks/useActions"
 import { useTypedSelector } from "../hooks/useTypedSelector"
 
 export const CharactersList: React.FC = () => {
-    const { loading, error, characters, page } = useTypedSelector(state => state.characters)
-    const {fetchCharacters, SetCharactersPage} = useActions()
-
-    const pages = [1, 2, 3, 4]
+    const { loading, error, characters, page, pages } = useTypedSelector(state => state.characters)
+    const {fetchCharacters, setCharactersPage} = useActions()
 
     useEffect(() => {
         fetchCharacters(page)
     }, [page])
 
     const onPaginationChange: PaginationProps['onChange'] = (page) => {
-        SetCharactersPage(page)
+        setCharactersPage(page)
     }
 
     return (
@@ -41,7 +39,7 @@ export const CharactersList: React.FC = () => {
                 )}
             </Space>
 
-            <Pagination defaultCurrent={page} total={pages.length*10} onChange={onPaginationChange} />
+            <Pagination defaultCurrent={page} total={pages*10} onChange={onPaginationChange} />
         </div>
     )
 }

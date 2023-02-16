@@ -4,7 +4,8 @@ const initialState: CharactersState = {
     characters: [],
     loading: false,
     error: null,
-    page: 1
+    page: 1,
+    pages: 1
 }
 
 export const charactersReduces = (state = initialState, action: CharactersAction): CharactersState => {
@@ -17,6 +18,8 @@ export const charactersReduces = (state = initialState, action: CharactersAction
             return {...state, loading: false, error: action.payload}
         case CharactersActionTypes.SET_CHARACTERS_PAGE:
             return {...state, page: action.payload}
+        case CharactersActionTypes.FETCH_CHARACTERS_PAGES:
+            return {...state, pages: action.payload}
         default:
             return state
     }
