@@ -5,7 +5,7 @@ export interface CharactersState {
     loading: boolean;
     error: string | null;
     page: number;
-    pages: number
+    count: number
 }
 
 export enum CharactersActionTypes {
@@ -13,7 +13,7 @@ export enum CharactersActionTypes {
     FETCH_CHARACTERS_SUCCESS = 'FETCH_CHARACTERS_SUCCESS',
     FETCH_CHARACTERS_ERROR = 'FETCH_CHARACTERS_ERROR',
     SET_CHARACTERS_PAGE = 'SET_CHARACTERS_PAGE',
-    FETCH_CHARACTERS_PAGES = 'FETCH_CHARACTERS_PAGES'
+    FETCH_CHARACTERS_COUNT = 'FETCH_CHARACTERS_COUNT'
 }
 
 interface FetchCharactersAction {
@@ -35,9 +35,9 @@ interface SetCharactersPage {
     payload: number
 }
 
-interface FetchCharactersPages {
-    type: CharactersActionTypes.FETCH_CHARACTERS_PAGES,
+interface FetchCharactersCount {
+    type: CharactersActionTypes.FETCH_CHARACTERS_COUNT,
     payload: number
 }
 
-export type CharactersAction = FetchCharactersAction | FetchCharactersSuccessAction | FetchCharactersErrorAction | SetCharactersPage | FetchCharactersPages
+export type CharactersAction = FetchCharactersAction | FetchCharactersSuccessAction | FetchCharactersErrorAction | SetCharactersPage | FetchCharactersCount

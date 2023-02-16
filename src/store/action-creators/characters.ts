@@ -9,8 +9,8 @@ export const fetchCharacters = (page = 1) => {
     return async (dispatch: Dispatch<CharactersAction>) => {
         try {
             dispatch({type: CharactersActionTypes.FETCH_CHARACTERS})
-            const respounse = await axios.get<{results: ICharacter[], info: { pages: number}}>(url + '/?page=' + page)
-            dispatch({type: CharactersActionTypes.FETCH_CHARACTERS_PAGES, payload: respounse.data.info.pages})
+            const respounse = await axios.get<{results: ICharacter[], info: { count: number}}>(url + '/?page=' + page)
+            dispatch({type: CharactersActionTypes.FETCH_CHARACTERS_COUNT, payload: respounse.data.info.count})
             dispatch({type: CharactersActionTypes.FETCH_CHARACTERS_SUCCESS, payload: respounse.data.results})
         } catch (e) {
             dispatch({

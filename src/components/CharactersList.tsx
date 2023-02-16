@@ -4,8 +4,10 @@ import { useActions } from "../hooks/useActions"
 import { useTypedSelector } from "../hooks/useTypedSelector"
 
 export const CharactersList: React.FC = () => {
-    const { loading, error, characters, page, pages } = useTypedSelector(state => state.characters)
+    const { loading, error, characters, page, count } = useTypedSelector(state => state.characters)
     const {fetchCharacters, setCharactersPage} = useActions()
+
+    const pageSize = 20
 
     useEffect(() => {
         fetchCharacters(page)
@@ -39,7 +41,7 @@ export const CharactersList: React.FC = () => {
                 )}
             </Space>
 
-            <Pagination defaultCurrent={page} total={pages*10} onChange={onPaginationChange} />
+            <Pagination defaultCurrent={page} total={count} pageSize={pageSize} pageSizeOptions={[pageSize]} onChange={onPaginationChange} />
         </div>
     )
 }
